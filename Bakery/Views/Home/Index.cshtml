@@ -1,3 +1,38 @@
 @{
     Layout = "_Layout";
 }
+
+@using Bakery.Models;
+
+<h1>Welcome to Your Bakery Page!</h1>
+
+<hr>
+
+@* <h4>Engineers</h4>
+@if (Model["engineers"].Length == 0)
+{
+  <p>No engineers have been added yet!</p>
+} 
+<ul>
+  @foreach (Engineer eng in Model["engineers"])
+  {
+    <li>@Html.ActionLink(@eng.Name, "Details", "Engineer", new { id = @eng.EngineerId})</li>
+  }
+</ul>
+
+<hr>
+
+<h4>Machines</h4>
+@if (Model["machines"].Length == 0)
+{
+  <p>No machines have been added yet!</p>
+} 
+<ul>
+  @foreach (Machine machine in Model["machines"])
+  {
+    <li>@Html.ActionLink(@machine.Type, "Details", "Machine", new { id = @machine.MachineId})</li>
+  }
+</ul> *@
+
+<p>@Html.ActionLink("See all treats", "Index", "Treat")</p> 
+<p>@Html.ActionLink("See all flavors", "Index", "Flavor")</p> 

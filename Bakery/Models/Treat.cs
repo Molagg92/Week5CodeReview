@@ -8,7 +8,6 @@ namespace Bakery.Models
     public int TreatId { get; set; }
     // [Required(ErrorMessage = "The Treat's type can't be empty!")]
     public string Type { get; set; }
-    public string RequiredLicense { get; set; }
     
     public List<FlavorTreatEntity> FlavorTreatEntities{ get; set; }
 
