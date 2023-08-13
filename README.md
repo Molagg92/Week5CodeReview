@@ -15,6 +15,8 @@
 
 ## Description
 
+![Alt text](image.png)
+
 _This application uses MVC structure, RESTFul routing convention, and HTTP methods to track user inputted information blah blah blah blah you better change this_
 
 ## Setup/Installation Requirements

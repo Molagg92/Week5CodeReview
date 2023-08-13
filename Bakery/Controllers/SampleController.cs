@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Mvc;
-using Week5CodeReview.Models;
+using Bakery.Models;
 
-namespace Week5CodeReview.Controllers
+namespace Bakery.Controllers
 {
-    public class Week5CodeReview : Controller
+    public class Bakery : Controller
     {
     }
 }
