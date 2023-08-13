@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Bakery.Models.Flavor
+
+<h4>Add a new flavor</h4>
+
+<p>@Html.ValidationMessageFor(model => model.Frosting, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+@using (Html.BeginForm())
+{
+
+  @Html.LabelFor(model => model.Frosting)
+  @Html.DropDownListFor(model => model.Frosting, new List<SelectListItem>
+    {
+        new SelectListItem { Text = "Strawberry", Value = "Strawberry" },
+        new SelectListItem { Text = "Chocolate", Value = "Chocolate" },
+        new SelectListItem { Text = "Vanilla", Value = "Vanilla" }
+    })
+
+  <br>
+  <input type="submit" value="Add new Flavor"/>
+}
+<p>@Html.ActionLink("Show all flavors", "Index")</p>

@@ -1,0 +1,25 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Bakery.Models.Treat
+
+<h4>Add a new treat</h4>
+
+<p>@Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+@using (Html.BeginForm())
+{
+
+  @Html.LabelFor(model => model.Type)
+  @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
+    {
+        new SelectListItem { Text = "CupCake", Value = "CupCake" },
+        new SelectListItem { Text = "Donut", Value = "Donut" },
+        new SelectListItem { Text = "Pie Slice", Value = "Pie Slice" }
+    })
+
+  <br>
+  <input type="submit" value="Add new Treat"/>
+}
+<p>@Html.ActionLink("Show all treats", "Index")</p>
