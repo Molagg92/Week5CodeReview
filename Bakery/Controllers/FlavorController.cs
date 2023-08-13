@@ -7,44 +7,56 @@ using Bakery.Models;
 
 namespace Bakery.Controllers
 {
-    public class FlavorController : Controller
+  public class FlavorController : Controller
+  {
+    private readonly BakeryContext _db;
+    public FlavorController(BakeryContext db)
     {
-      private readonly BakeryContext _db;
-      public FlavorController(BakeryContext db)
-      {
-        _db = db;
-      }
-  public ActionResult Index()
-      {
-      List<Flavor> model = _db.Flavors.ToList();
-      return View(model);
-      }
-      public ActionResult Create()
-      {
-      return View();
-      }
+      _db = db;
+    }
+public ActionResult Index()
+    {
+    List<Flavor> model = _db.Flavors.ToList();
+    return View(model);
+    }
+    public ActionResult Create()
+    {
+    return View();
+    }
 
-      [HttpPost]
-      public ActionResult Create(Flavor flavor)
-      {
-        if (!ModelState.IsValid)
-        { 
-          return View(flavor);
-        }
-        else
-        {
-        _db.Flavors.Add(flavor);
-        _db.SaveChanges();
-        return RedirectToAction("Index");
-        }
+    [HttpPost]
+    public ActionResult Create(Flavor flavor)
+    {
+      if (!ModelState.IsValid)
+      { 
+        return View(flavor);
       }
-      public ActionResult Details(int id)
+      else
       {
-        Flavor thisFlavor = _db.Flavors
-                                    .Include(flavor => flavor.FlavorTreatEntities)
-                                    .ThenInclude(join => join.Treat)
-                                    .FirstOrDefault(flavor => flavor.FlavorId == id);
-       return View(thisFlavor);
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
       }
     }
+    public ActionResult Details(int id)
+    {
+      Flavor thisFlavor = _db.Flavors
+                            .Include(flavor => flavor.FlavorTreatEntities)
+                            .ThenInclude(join => join.Treat)
+                            .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
+    }
+    public ActionResult Edit(int id)
+    {
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
+    }
+    [HttpPost]
+    public ActionResult Edit(Flavor flavor)
+    {
+      _db.Flavors.Update(flavor);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+  }
 }

@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Bakery.Models.Treat
+
+<h2>Edit</h2>
+
+<h4>Edit this Treat: @Html.DisplayFor(model => model.Type)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.TreatId)
+  <br>
+  @Html.LabelFor(model => model.Type)
+    @Html.DropDownListFor(model => model.Type,
+    new SelectList(new[]
+    {
+      new SelectListItem { Text = "CupCake", Value = "CupCake" },
+      new SelectListItem { Text = "Donut", Value = "Donut" },
+      new SelectListItem { Text = "Pie Slice", Value = "Pie Slice" }
+    }, "Value", "Text", Model.Type))  // Add this line to create the dropdown list
+  <br>
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index")</p>

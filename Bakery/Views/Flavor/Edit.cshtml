@@ -1,0 +1,27 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Bakery.Models.Flavor
+
+<h2>Edit</h2>
+
+<h4>Edit this Flavor: @Html.DisplayFor(model => model.Frosting)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.FlavorId)
+  <br>
+  @Html.LabelFor(model => model.Frosting)
+    @Html.DropDownListFor(model => model.Frosting,
+    new SelectList(new[]
+    {
+      new SelectListItem { Text = "Strawberry", Value = "Strawberry" },
+      new SelectListItem { Text = "Chocolate", Value = "Chocolate" },
+      new SelectListItem { Text = "Vanilla", Value = "Vanilla" }
+    }, "Value", "Text", Model.Frosting))  // Add this line to create the dropdown list
+  <br>
+
+  <input type="submit" value="Save" />
+}
+<p>@Html.ActionLink("Back to list", "Index")</p>
