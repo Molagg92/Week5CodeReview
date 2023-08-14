@@ -26,7 +26,7 @@ _Users can register an account and keep track of wich treats and pastries they w
 * _Once inside the project folder "Bakery", build an appsettings.json file, copy the following into it (replace the password with your server MySQL server passwor)_
 * ```{
     "ConnectionStrings": {
-      "DefaultConnection": "Server=localhost;Port=3306;database=[!!PROJECTNAME!!];uid=root;pwd=[!Yourpassword!];"
+      "DefaultConnection": "Server=localhost;Port=3306;database=week5codereview;uid=root;pwd=[!Yourpassword!];"
     }
   } ```
 * _After this, give commane `$ dotnet ef database update` for the databade_ 
