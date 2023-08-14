@@ -7,8 +7,10 @@
 <h1>Welcome to Your Bakery Page!</h1>
 
 <hr>
+@if (User.Identity.IsAuthenticated)
+{
 
-<h4>Treats</h4>
+<h4>Treats for @User.Identity.Name</h4>
 @if (Model["treats"].Length == 0)
 {
   <p>No treats have been added yet!</p>
@@ -33,6 +35,13 @@
     <li>@Html.ActionLink(@flav.Frosting, "Details", "flavor", new { id = @flav.FlavorId})</li>
   }
 </ul>
+
+}
+else
+{
+  <h4>Treats & Flavors</h4>
+  <p>Please @Html.ActionLink("log in", "LogIn", "Account") to view or manage your treats.</p>
+}
 
 <p>@Html.ActionLink("See all treats", "Index", "Treat")</p> 
 <p>@Html.ActionLink("See all flavors", "Index", "Flavor")</p> 

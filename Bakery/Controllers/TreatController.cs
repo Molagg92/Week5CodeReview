@@ -4,20 +4,35 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
+//--for objects associated with user
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace Bakery.Controllers
 {
+   [Authorize]
   public class TreatController : Controller
   {
     private readonly BakeryContext _db;
-    public TreatController(BakeryContext db)
+    //-- for user objects
+    private readonly UserManager<ApplicationUser> _userManager; 
+    public TreatController(UserManager<ApplicationUser> userManager, BakeryContext db)
     {
+      _userManager = userManager;
       _db = db;
     }
-public ActionResult Index()
+    [AllowAnonymous]
+        public async Task<ActionResult> Index()
     {
-    List<Treat> model = _db.Treats.ToList();
-    return View(model);
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Treat> userTreats = _db.Treats
+                          .Where(entry => entry.User.Id == currentUser.Id)
+                          
+                          .ToList();
+      return View(userTreats);
     }
     public ActionResult Create()
     {
@@ -25,7 +40,7 @@ public ActionResult Index()
     }
 
     [HttpPost]
-    public ActionResult Create(Treat treat)
+    public async Task<ActionResult> Create(Treat treat, int CategoryId)
     {
       if (!ModelState.IsValid)
       { 
@@ -33,11 +48,15 @@ public ActionResult Index()
       }
       else
       {
-      _db.Treats.Add(treat);
-      _db.SaveChanges();
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+        treat.User = currentUser;
+        _db.Treats.Add(treat);
+        _db.SaveChanges();
       return RedirectToAction("Index");
       }
     }
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Treat thisTreat = _db.Treats

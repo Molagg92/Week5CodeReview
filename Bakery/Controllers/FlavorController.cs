@@ -4,9 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Bakery.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bakery.Controllers
 {
+  [Authorize]
   public class FlavorController : Controller
   {
     private readonly BakeryContext _db;
@@ -14,6 +16,7 @@ namespace Bakery.Controllers
     {
       _db = db;
     }
+    [AllowAnonymous]
 public ActionResult Index()
     {
     List<Flavor> model = _db.Flavors.ToList();
@@ -38,6 +41,7 @@ public ActionResult Index()
       return RedirectToAction("Index");
       }
     }
+    [AllowAnonymous]
     public ActionResult Details(int id)
     {
       Flavor thisFlavor = _db.Flavors
