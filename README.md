@@ -1,8 +1,8 @@
-# _Week5CodeReview.Solution_
+# _Pier is Back!_
 
-#### _Application to "insert generic description here"_
+#### _A nifty web tool I made to help an expanding modern bakery_
 
-#### By **YOUR NAME HERE**
+#### By Erik Z./Molagg92
 
 ## Technologies Used
 
@@ -17,29 +17,32 @@
 
 ![Alt text](image.png)
 
-_This application uses MVC structure, RESTFul routing convention, and HTTP methods to track user inputted information blah blah blah blah you better change this_
+_Users can register an account and keep track of wich treats and pastries they want to go with witch ever flavor! Full CRUD on both ends!_
 
 ## Setup/Installation Requirements
 
-* _Clone "Week5CodeReview.Solution“ from the repository to your desktop_
-* _Navigate to "Week5CodeReview.Solution" directory via your local terminal command line_
-* _Navigate to the production directory "Week5CodeReview"_
+* _Clone "Week5CodeReview“ from the repository to your desktop_
 * _Navigate to the Week5CodeReview folder in your terminal_
-* _Then type ***dotnet build*** in your terminal to make sure everything is up to date and there are no errors_
-* _Then launch the webpage by typing ***dotnet watch run --launch-profile "production"*** in the teminal_
-* _For issuing and trusting a security certificate, type ***dotnet dev-certs https --trust*** in the terminal and restart your browser_
-* _If you would like to run the tests, type ***dotnet restore*** in the terminal to restore the dependencies that are listed in the .csproj file_
-* _Run the tests by moving into the Week5CodeReview.Tests folder and typing ***dotnet test*** in the terminal to run tests_
+* _Once inside the project folder "Bakery", build an appsettings.json file, copy the following into it (replace the password with your server MySQL server passwor)_
+* ```{
+    "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Port=3306;database=[!!PROJECTNAME!!];uid=root;pwd=[!Yourpassword!];"
+    }
+  } ```
+* _After this, give commane `$ dotnet ef database update` for the databade_ 
+* _Then type `dotnet build` in your terminal to make sure everything is up to date and there are no errors_
+* _Then launch the webpage by typing `dotnet watch run --launch-profile "production"` in the teminal_
+* _For issuing and trusting a security certificate, type `dotnet dev-certs https --trust` in the terminal and restart your browser_
 
 ## Known Bugs
 
-* _No known bugs as of 00/00/23_
+* _No known bugs as of 8/14/2023_
 
 ## License
 
 MIT License
 
-Copyright (c) [2023] [Your Name Here]
+Copyright (c) [2023] [Erik Z.]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -59,4 +62,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-_If you run into any issues or have questions, ideas or concerns, please reach out to me via email: YOUR EMAIL HERE.  Contributions to the code are highly encouraged._
+_If you run into any issues or have questions, ideas or concerns, please reach out to me via email: Molagg92@gmail.com.  Contributions to the code are highly encouraged._
