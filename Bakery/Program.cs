@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Bakery.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bakery
 {
@@ -22,6 +23,21 @@ namespace Bakery
                         ) 
                       );
 
+      // New code below!!
+      builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<BakeryContext>()
+                .AddDefaultTokenProviders();
+      builder.Services.Configure<IdentityOptions>(options =>
+      {
+        // Default Password settings.
+        options.Password.RequireDigit = false;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequiredLength = 0;
+        options.Password.RequiredUniqueChars = 0;
+      });
+
       WebApplication app = builder.Build();
 
       // app.UseDeveloperExceptionPage();
@@ -29,6 +45,10 @@ namespace Bakery
       app.UseStaticFiles();
 
       app.UseRouting();
+
+      // New code below!
+      app.UseAuthentication(); 
+      app.UseAuthorization();
 
       app.MapControllerRoute(
           name: "default",

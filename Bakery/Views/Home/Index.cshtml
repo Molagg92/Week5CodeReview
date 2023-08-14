@@ -8,31 +8,32 @@
 
 <hr>
 
-@* <h4>Engineers</h4>
-@if (Model["engineers"].Length == 0)
+<h4>Treats</h4>
+@if (Model["treats"].Length == 0)
 {
-  <p>No engineers have been added yet!</p>
+  <p>No treats have been added yet!</p>
 } 
 <ul>
-  @foreach (Engineer eng in Model["engineers"])
+  @foreach (Treat trt in Model["treats"])
   {
-    <li>@Html.ActionLink(@eng.Name, "Details", "Engineer", new { id = @eng.EngineerId})</li>
+    <li>@Html.ActionLink(@trt.Type, "Details", "Treat", new { id = @trt.TreatId})</li>
   }
 </ul>
 
 <hr>
 
-<h4>Machines</h4>
-@if (Model["machines"].Length == 0)
+<h4>Flavors</h4>
+@if (Model["flavors"].Length == 0)
 {
-  <p>No machines have been added yet!</p>
+  <p>No flavors have been added yet!</p>
 } 
 <ul>
-  @foreach (Machine machine in Model["machines"])
+  @foreach (Flavor flav in Model["flavors"])
   {
-    <li>@Html.ActionLink(@machine.Type, "Details", "Machine", new { id = @machine.MachineId})</li>
+    <li>@Html.ActionLink(@flav.Frosting, "Details", "flavor", new { id = @flav.FlavorId})</li>
   }
-</ul> *@
+</ul>
 
 <p>@Html.ActionLink("See all treats", "Index", "Treat")</p> 
 <p>@Html.ActionLink("See all flavors", "Index", "Flavor")</p> 
+<p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>

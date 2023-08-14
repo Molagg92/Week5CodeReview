@@ -17,13 +17,13 @@ namespace Bakery.Controllers
       [HttpGet("/")]
       public ActionResult Index()
       { 
-        // Flavor[] flavs =_db.Flavors.ToArray();
-        // Treat[] tres = _db.Treats.ToArray();
-        // Dictionary<string,object[]> model = new Dictionary<string, object[]>();
-        // model.Add("flavors", flavs);
-        // model.Add("treats", tres);
-        // return View(model);
-        return View();
+        Flavor[] flavs =_db.Flavors.ToArray();
+        Treat[] tres = _db.Treats.ToArray();
+        Dictionary<string,object[]> model = new Dictionary<string, object[]>();
+        model.Add("flavors", flavs);
+        model.Add("treats", tres);
+        return View(model);
+        
       }
 
     }
