@@ -72,5 +72,32 @@ public ActionResult Index()
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult AddTreat(int id)
+    {
+      Flavor thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Type");
+      return View(thisFlavor);
+    }
+    [HttpPost]
+    public ActionResult AddTreat(Flavor flavor, int treatId)
+    {
+      #nullable enable
+      FlavorTreatEntity? joinEntity = _db.FlavorTreatEntities.FirstOrDefault(join => (join.TreatId == treatId && join.FlavorId == flavor.FlavorId));
+      #nullable disable
+      if (joinEntity == null && treatId != 0)
+      {
+        _db.FlavorTreatEntities.Add(new FlavorTreatEntity() {TreatId = treatId, FlavorId = flavor.FlavorId });
+        _db.SaveChanges();
+      }
+      return RedirectToAction("Details", new { id = flavor.FlavorId });
+    }
+    [HttpPost]
+    public ActionResult DeleteJoin(int joinId)
+    {
+      FlavorTreatEntity joinEntry = _db.FlavorTreatEntities.FirstOrDefault(entry => entry.FlavorTreatEntityId == joinId);
+      _db.FlavorTreatEntities.Remove(joinEntry);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
