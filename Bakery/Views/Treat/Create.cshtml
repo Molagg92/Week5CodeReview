@@ -12,13 +12,7 @@
 {
 
   @Html.LabelFor(model => model.Type)
-  @Html.DropDownListFor(model => model.Type, new List<SelectListItem>
-    {
-        new SelectListItem { Text = "CupCake", Value = "CupCake" },
-        new SelectListItem { Text = "Donut", Value = "Donut" },
-        new SelectListItem { Text = "Pie Slice", Value = "Pie Slice" }
-    })
-
+  @Html.TextBoxFor(model => model.Type)
   <br>
   <input type="submit" value="Add new Treat"/>
 }

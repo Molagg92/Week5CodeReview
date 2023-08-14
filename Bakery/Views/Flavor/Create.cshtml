@@ -12,13 +12,7 @@
 {
 
   @Html.LabelFor(model => model.Frosting)
-  @Html.DropDownListFor(model => model.Frosting, new List<SelectListItem>
-    {
-        new SelectListItem { Text = "Strawberry", Value = "Strawberry" },
-        new SelectListItem { Text = "Chocolate", Value = "Chocolate" },
-        new SelectListItem { Text = "Vanilla", Value = "Vanilla" }
-    })
-
+  @Html.TextBoxFor(model => model.Frosting)
   <br>
   <input type="submit" value="Add new Flavor"/>
 }
