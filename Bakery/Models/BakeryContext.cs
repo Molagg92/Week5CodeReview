@@ -10,6 +10,8 @@ namespace Bakery.Models
     public DbSet<FlavorTreatEntity> FlavorTreatEntities { get; set; }
 
     public BakeryContext(DbContextOptions options) : base(options) { }
+
+    // // --------Could this be waht is making stuff break?
     //     protected override void OnModelCreating(ModelBuilder modelBuilder)
     // {
     //     modelBuilder.Entity<FlavorTreatEntity>()

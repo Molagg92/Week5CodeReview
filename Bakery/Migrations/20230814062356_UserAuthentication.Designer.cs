@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bakery.Migrations
 {
     [DbContext(typeof(BakeryContext))]
-    [Migration("20230814053711_UserAuthentication")]
+    [Migration("20230814062356_UserAuthentication")]
     partial class UserAuthentication
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

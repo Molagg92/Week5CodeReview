@@ -4,7 +4,7 @@
 
 namespace Bakery.Migrations
 {
-    public partial class RemoviedFieldFromTreatTable : Migration
+    public partial class BakeryContext2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

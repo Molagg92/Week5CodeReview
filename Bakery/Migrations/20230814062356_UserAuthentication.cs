@@ -10,63 +10,8 @@ namespace Bakery.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_FlavorTreatEntities",
-                table: "FlavorTreatEntities");
-
-            migrationBuilder.DropColumn(
-                name: "RequiredLicense",
-                table: "Treats");
-
-            migrationBuilder.UpdateData(
-                table: "Treats",
-                keyColumn: "Type",
-                keyValue: null,
-                column: "Type",
-                value: "");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Type",
-                table: "Treats",
-                type: "longtext",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "longtext",
-                oldNullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "FlavorTreatEntityId",
-                table: "FlavorTreatEntities",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
-
-            migrationBuilder.UpdateData(
-                table: "Flavors",
-                keyColumn: "Frosting",
-                keyValue: null,
-                column: "Frosting",
-                value: "");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Frosting",
-                table: "Flavors",
-                type: "longtext",
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "longtext",
-                oldNullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_FlavorTreatEntities",
-                table: "FlavorTreatEntities",
-                column: "FlavorTreatEntityId");
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
@@ -121,6 +66,36 @@ namespace Bakery.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Flavors",
+                columns: table => new
+                {
+                    FlavorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Frosting = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flavors", x => x.FlavorId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Treats",
+                columns: table => new
+                {
+                    TreatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Type = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Treats", x => x.TreatId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -251,10 +226,32 @@ namespace Bakery.Migrations
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_FlavorTreatEntities_TreatId",
-                table: "FlavorTreatEntities",
-                column: "TreatId");
+            migrationBuilder.CreateTable(
+                name: "FlavorTreatEntities",
+                columns: table => new
+                {
+                    FlavorTreatEntityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    FlavorId = table.Column<int>(type: "int", nullable: false),
+                    TreatId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FlavorTreatEntities", x => x.FlavorTreatEntityId);
+                    table.ForeignKey(
+                        name: "FK_FlavorTreatEntities_Flavors_FlavorId",
+                        column: x => x.FlavorId,
+                        principalTable: "Flavors",
+                        principalColumn: "FlavorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FlavorTreatEntities_Treats_TreatId",
+                        column: x => x.TreatId,
+                        principalTable: "Treats",
+                        principalColumn: "TreatId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -292,6 +289,16 @@ namespace Bakery.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlavorTreatEntities_FlavorId",
+                table: "FlavorTreatEntities",
+                column: "FlavorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FlavorTreatEntities_TreatId",
+                table: "FlavorTreatEntities",
+                column: "TreatId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -312,59 +319,19 @@ namespace Bakery.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FlavorTreatEntities");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_FlavorTreatEntities",
-                table: "FlavorTreatEntities");
+            migrationBuilder.DropTable(
+                name: "Flavors");
 
-            migrationBuilder.DropIndex(
-                name: "IX_FlavorTreatEntities_TreatId",
-                table: "FlavorTreatEntities");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Type",
-                table: "Treats",
-                type: "longtext",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "longtext")
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddColumn<string>(
-                name: "RequiredLicense",
-                table: "Treats",
-                type: "longtext",
-                nullable: true)
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AlterColumn<int>(
-                name: "FlavorTreatEntityId",
-                table: "FlavorTreatEntities",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int")
-                .OldAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Frosting",
-                table: "Flavors",
-                type: "longtext",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "longtext")
-                .Annotation("MySql:CharSet", "utf8mb4")
-                .OldAnnotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_FlavorTreatEntities",
-                table: "FlavorTreatEntities",
-                columns: new[] { "TreatId", "FlavorId" });
+            migrationBuilder.DropTable(
+                name: "Treats");
         }
     }
 }
